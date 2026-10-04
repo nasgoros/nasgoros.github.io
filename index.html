@@ -197,7 +197,7 @@
 <main id="top">
   <section class="hero">
     <div class="wrap">
-      <span class="pill"><span class="tag">1.0 Minimalist</span> First release in development</span>
+      <span class="pill"><span class="tag">17.0 Minimalist</span> First release in development</span>
       <h1>nasgor<span class="os">OS</span></h1>
       <p class="lead">A clean, vanilla Android 17 distribution based on LineageOS. Fast, private and free of preinstalled Google apps — you choose what goes on your phone.</p>
       <div class="cta">
@@ -238,7 +238,7 @@
           <dl>
             <dt>SoC</dt><dd>MediaTek Helio G85 (MT6768)</dd>
             <dt>Kernel</dt><dd>Linux 4.19</dd>
-            <dt>Android</dt><dd>17 (nasgorOS 1.0)</dd>
+            <dt>Android</dt><dd>17 (NasgorOS 17.0)</dd>
           </dl>
         </div>
         <a class="btn ghost" aria-disabled="true" href="#devices">Download — coming soon</a>
@@ -276,10 +276,10 @@
         <li><strong>Unlock the bootloader</strong><p>Use the official Mi Unlock tool. Xiaomi may require a waiting period.</p></li>
         <li><strong>Update firmware</strong><p>Install the stock MIUI firmware version required by LineageOS for merlinx.</p></li>
         <li><strong>Flash the recovery</strong><p>Reboot to fastboot (Power + Volume Down) and flash the recovery image from the release.</p>
-          <pre>fastboot flash recovery recovery.img</pre></li>
+          <pre>fastboot flash recovery NasgorOS-Recovery-17.0-&lt;date&gt;.img</pre></li>
         <li><strong>Format data</strong><p>Boot into recovery (Power + Volume Up) and choose Factory reset → Format data.</p></li>
         <li><strong>Sideload nasgorOS</strong><p>Choose Apply update → Apply from ADB, then on your computer:</p>
-          <pre>adb sideload nasgorOS-1.0-&lt;date&gt;-merlinx.zip</pre></li>
+          <pre>adb sideload NasgorOS-17.0-&lt;date&gt;-UNOFFICIAL-merlinx.zip</pre></li>
         <li><strong>Optional: flash LiteGapps</strong><p>Still in recovery, sideload LiteGapps before the first boot if you want Google apps.</p></li>
         <li><strong>Reboot</strong><p>The first boot can take several minutes.</p></li>
       </ol>
