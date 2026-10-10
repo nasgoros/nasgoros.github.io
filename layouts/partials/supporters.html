@@ -1,0 +1,14 @@
+{{ with site.Params.supporters }}
+<section class="support">
+  <h2>Supported by</h2>
+  <div class="supporters">
+    {{ range . }}
+      {{ $inner := printf "%s<span class=\"name\">%s</span>%s"
+           (cond (isset . "logo") (printf "<img src=\"%s\" alt=\"\" width=\"56\" height=\"56\">" (relURL .logo)) (printf "<span class=\"mono\">%s</span>" (substr .name 0 1)))
+           .name
+           (cond (isset . "note") (printf "<span class=\"note\">%s</span>" .note) "") }}
+      {{ if .url }}<a class="supporter" href="{{ .url }}">{{ $inner | safeHTML }}</a>{{ else }}<div class="supporter">{{ $inner | safeHTML }}</div>{{ end }}
+    {{ end }}
+  </div>
+</section>
+{{ end }}

@@ -9,9 +9,12 @@ disableKinds = ["taxonomy", "term", "RSS"]
   github = "https://github.com/nasgoros"
   telegram = "https://t.me/nasgoros"
 
-  # Shown in the "Supported by" box under the footer. url is optional.
+  # "Supported by" on the home page, above the footer. url, logo and note are optional;
+  # without a logo the first letter is shown.
   [[params.supporters]]
     name = "LiteGapps"
     url = "https://litegapps.github.io/"
+    logo = "images/supporters/litegapps.png"
+    note = "Recommended Google apps"
   [[params.supporters]]
     name = "Wahyu6070 Capital"

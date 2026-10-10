@@ -63,9 +63,17 @@ dl.specs dd { margin: 0; }
 footer { border-top: 1px solid var(--line); margin-top: 48px; padding: 20px 0 16px; color: var(--muted); font-size: .88rem; }
 footer .buttons { margin-bottom: 12px; }
 footer p { margin: 0; }
-.support { margin: 16px 0 40px; text-align: center; }
-.support span { display: block; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-                color: var(--muted); margin-bottom: 8px; }
-.support .names { display: flex; flex-wrap: wrap; gap: 8px 22px; justify-content: center; font-weight: 700; }
-.support .names a, .support .names b { color: var(--text); text-decoration: none; }
-.support .names a:hover { color: var(--accent); }
+.support { margin-top: 44px; text-align: center; }
+.support h2 { font-size: .8rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+              color: var(--muted); margin: 0 0 16px; }
+.supporters { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.supporter { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 20px 16px;
+             background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+             color: var(--text); text-decoration: none; transition: border-color .15s, transform .15s; }
+a.supporter:hover { border-color: var(--accent); color: var(--text); transform: translateY(-2px); }
+.supporter img { width: 56px; height: 56px; object-fit: contain; border-radius: 14px; background: #fff; padding: 6px; }
+.supporter .mono { width: 56px; height: 56px; border-radius: 14px; display: grid; place-items: center;
+                   font-size: 1.6rem; font-weight: 800; color: #fff7ed;
+                   background: linear-gradient(135deg, var(--accent), #f5b301); }
+.supporter .name { font-weight: 800; font-size: 1.05rem; }
+.supporter .note { color: var(--muted); font-size: .85rem; }

@@ -9,6 +9,8 @@
       <a class="btn main" href="{{ partial "sourceforge-url.html" (dict "device" $device "version" .Title) }}">Download</a>
       <a class="btn" href="{{ .RelPermalink }}">Install guide</a>
     {{ end }}
+    {{ if gt (len $device.RegularPages) 1 }}<a class="btn" href="{{ $device.RelPermalink }}#older">Older versions</a>{{ end }}
+    <a class="btn" href="{{ site.Params.sourceforge }}/files/{{ $device.Params.sourceforge_folder }}/">All builds</a>
     <a class="btn" href="{{ $device.RelPermalink }}">Details</a>
   </div>
 </div>

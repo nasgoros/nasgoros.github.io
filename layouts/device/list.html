@@ -10,19 +10,22 @@
     {{ with .Params.kernel_source }}<dt>Kernel</dt><dd><a href="{{ . }}">Source code</a></dd>{{ end }}
   </dl>
   <div class="content">{{ .Content }}</div>
-  <h2>Versions</h2>
   {{ $device := . }}
-  {{ range sort .RegularPages "Weight" "desc" }}
-  <div class="card device">
-    <h3><a href="{{ .RelPermalink }}">nasgorOS {{ .Title }}</a></h3>
-    <div class="meta">Android {{ .Params.android }}</div>
-    <div class="buttons">
-      <a class="btn main" href="{{ partial "sourceforge-url.html" (dict "device" $device "version" .Title) }}">Download ROM</a>
-      <a class="btn" href="{{ partial "sourceforge-url.html" (dict "device" $device "version" .Title "sub" "recovery/") }}">Recovery</a>
-      <a class="btn" href="{{ .RelPermalink }}">Install guide</a>
+  {{ $versions := sort .RegularPages "Weight" "desc" }}
+  {{ range $i, $v := $versions }}
+    {{ if eq $i 0 }}<h2>Latest</h2>{{ else if eq $i 1 }}<h2 id="older">Older versions</h2>{{ end }}
+    <div class="card device">
+      <h3><a href="{{ $v.RelPermalink }}">nasgorOS {{ $v.Title }}</a></h3>
+      <div class="meta">Android {{ $v.Params.android }}</div>
+      <div class="buttons">
+        <a class="btn{{ if eq $i 0 }} main{{ end }}" href="{{ partial "sourceforge-url.html" (dict "device" $device "version" $v.Title) }}">Download ROM</a>
+        <a class="btn" href="{{ partial "sourceforge-url.html" (dict "device" $device "version" $v.Title "sub" "recovery/") }}">Recovery</a>
+        <a class="btn" href="{{ $v.RelPermalink }}">Install guide</a>
+      </div>
     </div>
-  </div>
   {{ end }}
+  <p class="muted">Every version folder on SourceForge also keeps the older builds of that version.
+    <a href="{{ site.Params.sourceforge }}/files/{{ .Params.sourceforge_folder }}/">All builds for {{ .Params.codename }}</a>.</p>
 {{ else }}
   {{/* All devices: content/device/_index.md */}}
   <h1>Devices</h1>
