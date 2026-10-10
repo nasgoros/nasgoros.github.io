@@ -5,12 +5,9 @@
   <h3><a href="{{ $device.RelPermalink }}">{{ $device.Title }}</a>{{ with $device.Params.status }}<span class="badge">{{ . }}</span>{{ end }}</h3>
   <div class="meta"><code>{{ $device.Params.codename }}</code> · {{ $device.Params.soc }}{{ with $latest }} · nasgorOS {{ .Title }}{{ end }}</div>
   <div class="buttons">
-    {{ with $latest }}
-      <a class="btn main" href="{{ partial "sourceforge-url.html" (dict "device" $device "version" .Title) }}">Download</a>
-      <a class="btn" href="{{ .RelPermalink }}">Install guide</a>
-    {{ end }}
-    {{ if gt (len $device.RegularPages) 1 }}<a class="btn" href="{{ $device.RelPermalink }}#older">Older versions</a>{{ end }}
-    <a class="btn" href="{{ site.Params.sourceforge }}/files/{{ $device.Params.sourceforge_folder }}/">All builds</a>
+    {{/* Download opens the device folder on SourceForge, which lists every Android version. */}}
+    <a class="btn main" href="{{ site.Params.sourceforge }}/files/{{ $device.Params.sourceforge_folder }}/">Download</a>
+    {{ with $latest }}<a class="btn" href="{{ .RelPermalink }}">Install guide</a>{{ end }}
     <a class="btn" href="{{ $device.RelPermalink }}">Details</a>
   </div>
 </div>

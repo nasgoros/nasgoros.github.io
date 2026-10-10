@@ -20,7 +20,8 @@ content/device/merlinx/
    `sourceforge.net/projects/nasgoros/files/`).
 3. In `<version>.md` (e.g. `17.0.md`) set `title` to the version, `android`, and
    `weight` (version x10, newest first), then write the install steps for the device.
-   Download buttons point to `files/<sourceforge_folder>/<version>/` and `.../recovery/`.
+   **Download** opens `files/<sourceforge_folder>/` (all Android versions); version pages
+   link `files/<sourceforge_folder>/<version>/` and `.../recovery/`.
 4. Preview with `hugo server`, then open a pull request.
 
 `hugo.toml` holds the GitHub, Telegram and SourceForge links and the "Supported by"
