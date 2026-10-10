@@ -1,0 +1,18 @@
+<footer>
+  <div class="buttons">
+    <a class="btn" href="{{ site.Params.github }}">GitHub</a>
+    <a class="btn" href="{{ site.Params.telegram }}">Telegram</a>
+    <a class="btn" href="{{ site.Params.sourceforge }}">SourceForge</a>
+  </div>
+  <p>© {{ now.Year }} The nasgorOS Project</p>
+</footer>
+{{ with site.Params.supporters }}
+<section class="card support">
+  <span>Supported by</span>
+  <div class="names">
+    {{ range . }}
+      {{ if .url }}<a href="{{ .url }}">{{ .name }}</a>{{ else }}<b>{{ .name }}</b>{{ end }}
+    {{ end }}
+  </div>
+</section>
+{{ end }}

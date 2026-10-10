@@ -1,0 +1,31 @@
+{{ define "main" }}
+{{ if .Params.codename }}
+  {{/* Device page: content/device/<codename>/_index.md */}}
+  <div class="crumbs"><a href="{{ "device/" | relURL }}">Devices</a> › {{ .Params.codename }}</div>
+  <h1>{{ .Title }}{{ with .Params.status }}<span class="badge">{{ . }}</span>{{ end }}</h1>
+  <dl class="specs">
+    <dt>Codename</dt><dd><code>{{ .Params.codename }}</code></dd>
+    <dt>SoC</dt><dd>{{ .Params.soc }}</dd>
+    {{ with .Params.maintainer }}<dt>Maintainer</dt><dd>{{ if $.Params.maintainer_url }}<a href="{{ $.Params.maintainer_url }}">{{ . }}</a>{{ else }}{{ . }}{{ end }}</dd>{{ end }}
+    {{ with .Params.kernel_source }}<dt>Kernel</dt><dd><a href="{{ . }}">Source code</a></dd>{{ end }}
+  </dl>
+  <div class="content">{{ .Content }}</div>
+  <h2>Versions</h2>
+  {{ $device := . }}
+  {{ range sort .RegularPages "Weight" "desc" }}
+  <div class="card device">
+    <h3><a href="{{ .RelPermalink }}">nasgorOS {{ .Title }}</a></h3>
+    <div class="meta">Android {{ .Params.android }}</div>
+    <div class="buttons">
+      <a class="btn main" href="{{ partial "sourceforge-url.html" (dict "device" $device "version" .Title) }}">Download ROM</a>
+      <a class="btn" href="{{ partial "sourceforge-url.html" (dict "device" $device "version" .Title "sub" "recovery/") }}">Recovery</a>
+      <a class="btn" href="{{ .RelPermalink }}">Install guide</a>
+    </div>
+  </div>
+  {{ end }}
+{{ else }}
+  {{/* All devices: content/device/_index.md */}}
+  <h1>Devices</h1>
+  {{ range .Sections.ByWeight }}{{ partial "device-card.html" . }}{{ end }}
+{{ end }}
+{{ end }}

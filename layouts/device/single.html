@@ -1,0 +1,14 @@
+{{ define "main" }}
+{{/* Version page: content/device/<codename>/<version>.md */}}
+{{ $device := .Parent }}
+<div class="crumbs"><a href="{{ "device/" | relURL }}">Devices</a> ›
+  <a href="{{ $device.RelPermalink }}">{{ $device.Params.codename }}</a> › {{ .Title }}</div>
+<h1>{{ $device.Title }} · nasgorOS {{ .Title }}</h1>
+<div class="meta"><code>{{ $device.Params.codename }}</code> · {{ $device.Params.soc }} · Android {{ .Params.android }}</div>
+<div class="buttons">
+  <a class="btn main" href="{{ partial "sourceforge-url.html" (dict "device" $device "version" .Title) }}">Download ROM</a>
+  <a class="btn" href="{{ partial "sourceforge-url.html" (dict "device" $device "version" .Title "sub" "recovery/") }}">Recovery</a>
+  {{ with $device.Params.kernel_source }}<a class="btn" href="{{ . }}">Kernel source</a>{{ end }}
+</div>
+<div class="content">{{ .Content }}</div>
+{{ end }}

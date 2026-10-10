@@ -1,0 +1,14 @@
+{{- /* Card for a device section page (content/device/<codename>/_index.md). */ -}}
+{{ $device := . }}
+{{ $latest := index (sort $device.RegularPages "Weight" "desc") 0 }}
+<div class="card device">
+  <h3><a href="{{ $device.RelPermalink }}">{{ $device.Title }}</a>{{ with $device.Params.status }}<span class="badge">{{ . }}</span>{{ end }}</h3>
+  <div class="meta"><code>{{ $device.Params.codename }}</code> · {{ $device.Params.soc }}{{ with $latest }} · nasgorOS {{ .Title }}{{ end }}</div>
+  <div class="buttons">
+    {{ with $latest }}
+      <a class="btn main" href="{{ partial "sourceforge-url.html" (dict "device" $device "version" .Title) }}">Download</a>
+      <a class="btn" href="{{ .RelPermalink }}">Install guide</a>
+    {{ end }}
+    <a class="btn" href="{{ $device.RelPermalink }}">Details</a>
+  </div>
+</div>

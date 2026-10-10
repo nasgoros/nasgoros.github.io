@@ -1,0 +1,2 @@
+{{- /* SourceForge folder of a device version: dict "device" <device page> "version" "17.0" "sub" "recovery/" */ -}}
+{{- return printf "%s/files/%s/%s/%s" site.Params.sourceforge .device.Params.sourceforge_folder .version (.sub | default "") -}}

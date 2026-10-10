@@ -1,0 +1,8 @@
+{{ define "main" }}
+<h2>Download</h2>
+{{ with site.GetPage "/device" }}
+  {{ range .Sections.ByWeight }}{{ partial "device-card.html" . }}{{ end }}
+{{ end }}
+<p class="muted">All files: <a href="{{ site.Params.sourceforge }}/files/">SourceForge</a>.
+  SourceForge shows the SHA1/MD5 of every file.</p>
+{{ end }}

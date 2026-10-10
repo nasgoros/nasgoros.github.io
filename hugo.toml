@@ -1,0 +1,17 @@
+baseURL = "https://nasgoros.github.io/"
+locale = "en"
+title = "nasgorOS"
+disableKinds = ["taxonomy", "term", "RSS"]
+
+[params]
+  description = "nasgorOS: a clean Android ROM focused on performance and stability. Downloads on SourceForge."
+  sourceforge = "https://sourceforge.net/projects/nasgoros"
+  github = "https://github.com/nasgoros"
+  telegram = "https://t.me/nasgoros"
+
+  # Shown in the "Supported by" box under the footer. url is optional.
+  [[params.supporters]]
+    name = "LiteGapps"
+    url = "https://litegapps.github.io/"
+  [[params.supporters]]
+    name = "Wahyu6070 Capital"

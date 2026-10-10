@@ -1,0 +1,71 @@
+:root {
+  --bg: #fffaf3; --card: #ffffff; --text: #2a1a12; --muted: #7a5f50;
+  --line: #f0dcc8; --accent: #d9381e; --accent-hover: #b02a14; --code: #fff1e0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #17100c; --card: #231811; --text: #fbeee2; --muted: #c4a693;
+    --line: #3a2a1f; --accent: #ff5a3c; --accent-hover: #ff7a60; --code: #2c1f17;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #17100c; --card: #231811; --text: #fbeee2; --muted: #c4a693;
+  --line: #3a2a1f; --accent: #ff5a3c; --accent-hover: #ff7a60; --code: #2c1f17;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text); line-height: 1.6;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+a { color: var(--accent); }
+a:hover { color: var(--accent-hover); }
+code { background: var(--code); padding: .1em .35em; border-radius: 5px; font-size: .9em; }
+pre { background: var(--code); padding: 12px 14px; border-radius: 10px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+
+header { display: flex; align-items: center; gap: 10px; padding: 16px 0; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; }
+.brand img { width: 44px; height: 44px; object-fit: contain; }
+.brand strong { font-size: 1.2rem; }
+.brand strong b { color: var(--accent); }
+header nav { margin-left: auto; display: flex; gap: 14px; align-items: center; font-size: .95rem; }
+header nav a { color: var(--muted); text-decoration: none; font-weight: 600; }
+header nav a:hover { color: var(--text); }
+.theme { border: 1px solid var(--line); background: var(--card); color: var(--text);
+         width: 32px; height: 32px; border-radius: 8px; cursor: pointer; }
+
+h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); line-height: 1.15; margin: 20px 0 6px; }
+h2 { font-size: 1.3rem; margin: 32px 0 12px; }
+.muted { color: var(--muted); }
+.crumbs { font-size: .9rem; color: var(--muted); margin-top: 8px; }
+.crumbs a { color: var(--muted); }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 12px; }
+.device h3 { margin: 0; font-size: 1.1rem; }
+.device h3 a { color: var(--text); text-decoration: none; }
+.meta { color: var(--muted); font-size: .92rem; margin: 2px 0 14px; }
+.badge { display: inline-block; font-size: .75rem; font-weight: 700; padding: 2px 9px; border-radius: 999px;
+         background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); margin-left: 6px;
+         vertical-align: middle; }
+.buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn { display: inline-block; padding: 9px 14px; border-radius: 10px; font-weight: 700; font-size: .92rem;
+       text-decoration: none; border: 1px solid var(--line); color: var(--text); background: var(--bg); }
+.btn:hover { border-color: var(--accent); color: var(--text); }
+.btn.main { background: var(--accent); border-color: var(--accent); color: #fff7ed; }
+.btn.main:hover { background: var(--accent-hover); color: #fff7ed; }
+dl.specs { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 0 0 14px; font-size: .95rem; }
+dl.specs dt { color: var(--muted); }
+dl.specs dd { margin: 0; }
+.content ol { padding-left: 22px; }
+.content li { margin-bottom: 8px; }
+
+footer { border-top: 1px solid var(--line); margin-top: 48px; padding: 20px 0 16px; color: var(--muted); font-size: .88rem; }
+footer .buttons { margin-bottom: 12px; }
+footer p { margin: 0; }
+.support { margin: 16px 0 40px; text-align: center; }
+.support span { display: block; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+                color: var(--muted); margin-bottom: 8px; }
+.support .names { display: flex; flex-wrap: wrap; gap: 8px 22px; justify-content: center; font-weight: 700; }
+.support .names a, .support .names b { color: var(--text); text-decoration: none; }
+.support .names a:hover { color: var(--accent); }
