@@ -4,324 +4,137 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>nasgorOS</title>
-<meta name="description" content="nasgorOS — a clean, vanilla Android 17 distribution based on LineageOS.">
+<meta name="description" content="nasgorOS — a clean, vanilla Android 17 ROM based on LineageOS. Downloads on SourceForge.">
 <meta property="og:title" content="nasgorOS">
-<meta property="og:description" content="A clean, vanilla Android 17 distribution based on LineageOS.">
+<meta property="og:description" content="A clean, vanilla Android 17 ROM based on LineageOS.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://nasgoros.github.io/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23d9381e'/%3E%3Ctext x='32' y='44' font-family='Arial,sans-serif' font-size='34' font-weight='700' text-anchor='middle' fill='%23fff7ed'%3En%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #fffaf3;
-    --bg-soft: #fff1e0;
-    --card: #ffffff;
-    --text: #2a1a12;
-    --muted: #7a5f50;
-    --line: #f0dcc8;
-    --chili: #d9381e;
-    --chili-deep: #b02a14;
-    --egg: #f5b301;
-    --leaf: #2f8f4e;
-    --code-bg: #2a1a12;
-    --code-text: #fde9d4;
-    --shadow: 0 1px 2px rgba(80, 30, 10, .06), 0 8px 24px rgba(80, 30, 10, .07);
+    --bg: #fffaf3; --card: #ffffff; --text: #2a1a12; --muted: #7a5f50;
+    --line: #f0dcc8; --accent: #d9381e; --accent-hover: #b02a14; --code: #fff1e0;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #17100c;
-      --bg-soft: #21160f;
-      --card: #231811;
-      --text: #fbeee2;
-      --muted: #c4a693;
-      --line: #3a2a1f;
-      --chili: #ff5a3c;
-      --chili-deep: #ff7a60;
-      --egg: #ffc93c;
-      --leaf: #5cc77f;
-      --code-bg: #0f0a07;
-      --code-text: #fde9d4;
-      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
+      --bg: #17100c; --card: #231811; --text: #fbeee2; --muted: #c4a693;
+      --line: #3a2a1f; --accent: #ff5a3c; --accent-hover: #ff7a60; --code: #2c1f17;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #17100c;
-    --bg-soft: #21160f;
-    --card: #231811;
-    --text: #fbeee2;
-    --muted: #c4a693;
-    --line: #3a2a1f;
-    --chili: #ff5a3c;
-    --chili-deep: #ff7a60;
-    --egg: #ffc93c;
-    --leaf: #5cc77f;
-    --code-bg: #0f0a07;
-    --code-text: #fde9d4;
-    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
+    --bg: #17100c; --card: #231811; --text: #fbeee2; --muted: #c4a693;
+    --line: #3a2a1f; --accent: #ff5a3c; --accent-hover: #ff7a60; --code: #2c1f17;
   }
-
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
   body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
+    margin: 0; background: var(--bg); color: var(--text); line-height: 1.6;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   }
-  a { color: var(--chili); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-  a:hover { color: var(--chili-deep); }
-  code, pre { font-family: "JetBrains Mono", ui-monospace, monospace; }
-  :not(pre) > code {
-    background: var(--bg-soft);
-    border: 1px solid var(--line);
-    padding: .1em .4em;
-    border-radius: 6px;
-    font-size: .88em;
-  }
-
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
-
-  /* Nav */
-  header.nav {
-    position: sticky; top: 0; z-index: 10;
-    background: color-mix(in srgb, var(--bg) 85%, transparent);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
-  }
-  header.nav .wrap { display: flex; align-items: center; gap: 16px; height: 60px; }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.15rem; color: var(--text); text-decoration: none; }
-  .brand .logo { width: 30px; height: 30px; border-radius: 9px; background: var(--chili); color: #fff7ed; display: grid; place-items: center; font-size: 1rem; }
-  .brand b { color: var(--chili); }
-  nav.links { margin-left: auto; display: flex; gap: 4px; align-items: center; }
-  nav.links a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: .92rem; padding: 6px 10px; border-radius: 8px; }
-  nav.links a:hover { color: var(--text); background: var(--bg-soft); }
-  .theme-btn { border: 1px solid var(--line); background: var(--card); color: var(--text); width: 36px; height: 36px; border-radius: 10px; cursor: pointer; font-size: 1rem; }
-  @media (max-width: 680px) { nav.links a.opt { display: none; } }
-
-  /* Hero */
-  .hero { padding: 72px 0 56px; position: relative; overflow: hidden; }
-  .hero::before {
-    content: ""; position: absolute; inset: -40% -10% auto auto; width: 520px; height: 520px;
-    background: radial-gradient(circle, color-mix(in srgb, var(--egg) 30%, transparent), transparent 65%);
-    pointer-events: none;
-  }
-  .pill { display: inline-flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px 5px 6px; font-size: .85rem; font-weight: 600; color: var(--muted); box-shadow: var(--shadow); }
-  .pill .tag { background: var(--chili); color: #fff7ed; border-radius: 999px; padding: 2px 9px; font-size: .75rem; letter-spacing: .02em; }
-  h1 { font-size: clamp(2.6rem, 7vw, 4.4rem); line-height: 1.05; letter-spacing: -.03em; margin: 22px 0 16px; font-weight: 800; }
-  h1 .os { color: var(--chili); }
-  .lead { font-size: clamp(1.05rem, 2.2vw, 1.25rem); color: var(--muted); max-width: 620px; margin: 0 0 28px; }
-  .cta { display: flex; gap: 12px; flex-wrap: wrap; }
-  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 12px; font-weight: 700; text-decoration: none; font-size: .98rem; border: 1px solid transparent; }
-  .btn.primary { background: var(--chili); color: #fff7ed; }
-  .btn.primary:hover { background: var(--chili-deep); color: #fff7ed; }
-  .btn.ghost { background: var(--card); color: var(--text); border-color: var(--line); }
-  .btn.ghost:hover { border-color: var(--chili); color: var(--text); }
-  .facts { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 40px; color: var(--muted); font-size: .92rem; }
-  .facts strong { display: block; color: var(--text); font-size: 1.15rem; }
-
-  /* Sections */
-  section { padding: 56px 0; }
-  section.alt { background: var(--bg-soft); border-block: 1px solid var(--line); }
-  h2 { font-size: clamp(1.6rem, 3.5vw, 2.1rem); letter-spacing: -.02em; margin: 0 0 8px; }
-  .sub { color: var(--muted); margin: 0 0 32px; max-width: 640px; }
-
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 22px; box-shadow: var(--shadow); }
-  .card .ico { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; font-size: 1.25rem; margin-bottom: 12px; background: var(--bg-soft); }
-  .card h3 { margin: 0 0 6px; font-size: 1.05rem; }
-  .card p { margin: 0; color: var(--muted); font-size: .95rem; }
-
-  /* Devices */
-  .device { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; }
-  .device h3 { margin: 0; font-size: 1.2rem; }
-  .device .code { color: var(--muted); font-size: .9rem; }
-  .device dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 14px 0 0; font-size: .92rem; }
-  .device dt { color: var(--muted); }
-  .device dd { margin: 0; }
-  .status { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: .82rem; padding: 4px 10px; border-radius: 999px; background: color-mix(in srgb, var(--egg) 22%, transparent); color: var(--text); }
-  .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--egg); }
-  .btn[aria-disabled="true"] { opacity: .55; pointer-events: none; }
-  @media (max-width: 640px) { .device { grid-template-columns: 1fr; } }
-
-  /* LiteGapps */
-  .gapps { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 32px; box-shadow: var(--shadow); }
-  .gapps .badge { display: inline-block; font-size: .78rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--leaf); margin-bottom: 8px; }
-  .gapps h2 { margin-bottom: 10px; }
-  .gapps p { color: var(--muted); margin: 0 0 18px; }
-  .gapps ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
-  .gapps li { display: flex; gap: 10px; align-items: flex-start; font-size: .95rem; }
-  .gapps li::before { content: "✓"; color: var(--leaf); font-weight: 800; }
-  @media (max-width: 760px) { .gapps { grid-template-columns: 1fr; padding: 24px; } }
-
-  /* Install steps */
-  ol.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
-  ol.steps li { counter-increment: s; position: relative; padding: 18px 18px 18px 64px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
-  ol.steps li::before { content: counter(s); position: absolute; left: 18px; top: 16px; width: 30px; height: 30px; border-radius: 50%; background: var(--chili); color: #fff7ed; display: grid; place-items: center; font-weight: 800; font-size: .9rem; }
-  ol.steps strong { display: block; margin-bottom: 2px; }
-  ol.steps p { margin: 0; color: var(--muted); font-size: .95rem; }
-  pre { background: var(--code-bg); color: var(--code-text); padding: 14px 16px; border-radius: 10px; overflow-x: auto; font-size: .86rem; margin: 10px 0 0; line-height: 1.55; }
-  .note { margin-top: 18px; padding: 14px 16px; border-left: 4px solid var(--egg); background: var(--card); border-radius: 0 10px 10px 0; color: var(--muted); font-size: .93rem; }
-
-  /* Source */
-  .repos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
-  .repo { display: block; text-decoration: none; color: var(--text); background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
-  .repo:hover { border-color: var(--chili); color: var(--text); }
-  .repo code { background: none; border: 0; padding: 0; font-size: .88rem; color: var(--chili); }
-  .repo span { display: block; color: var(--muted); font-size: .88rem; margin-top: 2px; }
-
-  footer { padding: 40px 0 56px; color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line); }
-  footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; }
-  footer p { margin: 0; }
+  a { color: var(--accent); }
+  a:hover { color: var(--accent-hover); }
+  code { background: var(--code); padding: .1em .35em; border-radius: 5px; font-size: .9em; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+  header { display: flex; align-items: center; gap: 12px; padding: 20px 0; }
+  .logo { width: 34px; height: 34px; border-radius: 10px; background: var(--accent); color: #fff7ed;
+          display: grid; place-items: center; font-weight: 800; }
+  header strong { font-size: 1.2rem; }
+  header strong b { color: var(--accent); }
+  header nav { margin-left: auto; display: flex; gap: 14px; align-items: center; font-size: .95rem; }
+  header nav a { color: var(--muted); text-decoration: none; font-weight: 600; }
+  header nav a:hover { color: var(--text); }
+  .theme { border: 1px solid var(--line); background: var(--card); color: var(--text);
+           width: 32px; height: 32px; border-radius: 8px; cursor: pointer; }
+  h1 { font-size: clamp(2rem, 6vw, 2.8rem); line-height: 1.1; margin: 24px 0 8px; }
+  h1 span { color: var(--accent); }
+  .lead { color: var(--muted); margin: 0 0 8px; font-size: 1.05rem; }
+  h2 { font-size: 1.35rem; margin: 40px 0 12px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 12px; }
+  .device h3 { margin: 0; font-size: 1.1rem; }
+  .device .meta { color: var(--muted); font-size: .92rem; margin: 2px 0 14px; }
+  .badge { display: inline-block; font-size: .75rem; font-weight: 700; padding: 2px 9px; border-radius: 999px;
+           background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); margin-left: 6px;
+           vertical-align: middle; }
+  .buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+  .btn { display: inline-block; padding: 9px 14px; border-radius: 10px; font-weight: 700; font-size: .92rem;
+         text-decoration: none; border: 1px solid var(--line); color: var(--text); background: var(--bg); }
+  .btn:hover { border-color: var(--accent); color: var(--text); }
+  .btn.main { background: var(--accent); border-color: var(--accent); color: #fff7ed; }
+  .btn.main:hover { background: var(--accent-hover); color: #fff7ed; }
+  ol { padding-left: 20px; margin: 0; }
+  ol li { margin-bottom: 6px; }
+  .note { color: var(--muted); font-size: .92rem; margin-top: 10px; }
+  footer { border-top: 1px solid var(--line); margin-top: 48px; padding: 20px 0 40px; color: var(--muted); font-size: .88rem; }
+  footer .buttons { margin-bottom: 12px; }
 </style>
 </head>
 <body>
-
-<header class="nav">
-  <div class="wrap">
-    <a class="brand" href="#top"><span class="logo">n</span><span>nasgor<b>OS</b></span></a>
-    <nav class="links">
-      <a href="#devices">Devices</a>
-      <a class="opt" href="#gapps">Google apps</a>
-      <a class="opt" href="#install">Install</a>
-      <a href="#source">Source</a>
-      <button class="theme-btn" id="theme" type="button" aria-label="Toggle dark mode">◐</button>
+<div class="wrap">
+  <header>
+    <div class="logo">n</div>
+    <strong>nasgor<b>OS</b></strong>
+    <nav>
+      <a href="#download">Download</a>
+      <a href="#install">Install</a>
+      <a href="https://github.com/nasgoros">GitHub</a>
+      <button class="theme" id="theme" type="button" aria-label="Toggle dark mode">◐</button>
     </nav>
+  </header>
+
+  <h1>nasgor<span>OS</span> 17.0</h1>
+  <p class="lead">A clean, vanilla Android 17 ROM based on LineageOS. No Google apps inside: add
+    <a href="https://litegapps.github.io/">LiteGapps</a> if you want Play Store.</p>
+
+  <h2 id="download">Download</h2>
+  <!-- One card per device. Files live on SourceForge: <device folder>/<Android version>/ -->
+  <div class="card device">
+    <h3>Xiaomi Redmi Note 9 <span class="badge">Official</span></h3>
+    <div class="meta"><code>merlinx</code> · MediaTek Helio G85 · Android 17</div>
+    <div class="buttons">
+      <a class="btn main" href="https://sourceforge.net/projects/nasgoros/files/merlin/17.0/">Download ROM</a>
+      <a class="btn" href="https://sourceforge.net/projects/nasgoros/files/merlin/17.0/recovery/">Recovery</a>
+      <a class="btn" href="https://github.com/nasgoros/android_kernel_xiaomi_mt6768">Kernel source</a>
+    </div>
   </div>
-</header>
+  <p class="note">All files: <a href="https://sourceforge.net/projects/nasgoros/files/">sourceforge.net/projects/nasgoros</a>.
+    SourceForge shows the SHA1/MD5 of every file.</p>
 
-<main id="top">
-  <section class="hero">
-    <div class="wrap">
-      <span class="pill"><span class="tag">17.0 Minimalist</span> First release in development</span>
-      <h1>nasgor<span class="os">OS</span></h1>
-      <p class="lead">A clean, vanilla Android 17 distribution based on LineageOS. Fast, private and free of preinstalled Google apps — you choose what goes on your phone.</p>
-      <div class="cta">
-        <a class="btn primary" href="#devices">Supported devices</a>
-        <a class="btn ghost" href="https://github.com/nasgoros">View on GitHub</a>
-      </div>
-      <div class="facts">
-        <div><strong>Android 17</strong>Platform</div>
-        <div><strong>LineageOS 24.0</strong>Base</div>
-        <div><strong>Vanilla</strong>No bundled GApps</div>
-        <div><strong>Open source</strong>Apache-2.0 &amp; GPL</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="alt">
-    <div class="wrap">
-      <h2>Why nasgorOS</h2>
-      <p class="sub">Simple ingredients, cooked right. nasgorOS keeps the LineageOS foundation and adds its own identity on top, without bloat.</p>
-      <div class="grid">
-        <div class="card"><div class="ico">🍳</div><h3>Built on LineageOS</h3><p>Inherits LineageOS 24.0's device support, security patches and privacy features.</p></div>
-        <div class="card"><div class="ico">🌶️</div><h3>Vanilla by design</h3><p>No Google apps baked in. Add LiteGapps if you want Play Store, or stay Google-free.</p></div>
-        <div class="card"><div class="ico">🔒</div><h3>Privacy first</h3><p>No trackers or analytics added. What ships is what you see in the source.</p></div>
-        <div class="card"><div class="ico">🛠️</div><h3>Fully open</h3><p>Every repository — vendor, device trees and kernels — is public on GitHub.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="devices">
-    <div class="wrap">
-      <h2>Devices</h2>
-      <p class="sub">Official builds are made for these devices. More devices will follow once the first release is stable.</p>
-      <div class="card device">
-        <div>
-          <span class="status">In development</span>
-          <h3 style="margin-top:10px">Xiaomi Redmi Note 9</h3>
-          <div class="code">Codename <code>merlinx</code> (merlin)</div>
-          <dl>
-            <dt>SoC</dt><dd>MediaTek Helio G85 (MT6768)</dd>
-            <dt>Kernel</dt><dd>Linux 4.19</dd>
-            <dt>Android</dt><dd>17 (NasgorOS 17.0)</dd>
-          </dl>
-        </div>
-        <a class="btn ghost" aria-disabled="true" href="#devices">Download — coming soon</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="gapps" class="alt">
-    <div class="wrap">
-      <div class="gapps">
-        <div>
-          <span class="badge">Recommended Google apps</span>
-          <h2>Want Play Store? Use LiteGapps.</h2>
-          <p>nasgorOS never ships Google apps inside the ROM. If you need Google services, flash <strong>LiteGapps</strong> right after installing nasgorOS — before the first boot.</p>
-          <div class="cta">
-            <a class="btn primary" href="https://litegapps.github.io/">Get LiteGapps</a>
-            <a class="btn ghost" href="https://github.com/litegapps">LiteGapps on GitHub</a>
-          </div>
-        </div>
-        <ul>
-          <li>Lightweight package that saves system space</li>
-          <li>Pick only the Google apps you actually use</li>
-          <li>Open source, maintained by the LiteGapps project</li>
-          <li>The recommended GApps for every nasgorOS release</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="install">
-    <div class="wrap">
-      <h2>Installation</h2>
-      <p class="sub">General steps for <code>merlinx</code>. Installing a custom ROM wipes your data — back up first.</p>
-      <ol class="steps">
-        <li><strong>Unlock the bootloader</strong><p>Use the official Mi Unlock tool. Xiaomi may require a waiting period.</p></li>
-        <li><strong>Update firmware</strong><p>Install the stock MIUI firmware version required by LineageOS for merlinx.</p></li>
-        <li><strong>Flash the recovery</strong><p>Reboot to fastboot (Power + Volume Down) and flash the recovery image from the release.</p>
-          <pre>fastboot flash recovery NasgorOS-Recovery-17.0-&lt;date&gt;.img</pre></li>
-        <li><strong>Format data</strong><p>Boot into recovery (Power + Volume Up) and choose Factory reset → Format data.</p></li>
-        <li><strong>Sideload nasgorOS</strong><p>Choose Apply update → Apply from ADB, then on your computer:</p>
-          <pre>adb sideload NasgorOS-17.0-&lt;date&gt;-UNOFFICIAL-merlinx.zip</pre></li>
-        <li><strong>Optional: flash LiteGapps</strong><p>Still in recovery, sideload LiteGapps before the first boot if you want Google apps.</p></li>
-        <li><strong>Reboot</strong><p>The first boot can take several minutes.</p></li>
-      </ol>
-      <div class="note">nasgorOS is unofficial software provided as-is. You are responsible for your device; flashing may void your warranty.</div>
-    </div>
-  </section>
-
-  <section id="source" class="alt">
-    <div class="wrap">
-      <h2>Source code</h2>
-      <p class="sub">Build nasgorOS yourself. All repositories use the <code>17.0</code> branch.</p>
-      <pre>repo init -u https://github.com/nasgoros/android.git -b 17.0 --git-lfs
-repo sync -c -j8 --no-clone-bundle --no-tags
-source build/envsetup.sh
-breakfast merlinx
-mka nasgoros</pre>
-      <div class="repos" style="margin-top:20px">
-        <a class="repo" href="https://github.com/nasgoros/android"><code>android</code><span>Manifest</span></a>
-        <a class="repo" href="https://github.com/nasgoros/android_vendor_nasgoros"><code>android_vendor_nasgoros</code><span>nasgorOS configuration &amp; branding</span></a>
-        <a class="repo" href="https://github.com/nasgoros/android_device_xiaomi_merlinx"><code>android_device_xiaomi_merlinx</code><span>Redmi Note 9 device tree</span></a>
-        <a class="repo" href="https://github.com/nasgoros/android_device_xiaomi_mt6768-common"><code>android_device_xiaomi_mt6768-common</code><span>MT6768 common tree</span></a>
-        <a class="repo" href="https://github.com/nasgoros/android_kernel_xiaomi_mt6768"><code>android_kernel_xiaomi_mt6768</code><span>Kernel source (GPL-2.0)</span></a>
-        <a class="repo" href="https://github.com/nasgoros"><code>github.com/nasgoros</code><span>All repositories</span></a>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="wrap">
-    <p>© 2026 The nasgorOS Project</p>
-    <p>Based on <a href="https://lineageos.org">LineageOS</a>. Proprietary blobs from <a href="https://github.com/TheMuppets">TheMuppets</a>. Not affiliated with LineageOS, Xiaomi or Google.</p>
+  <h2>Google apps</h2>
+  <div class="card">
+    nasgorOS never includes Google apps. For Play Store and Google services, flash
+    <a href="https://litegapps.github.io/">LiteGapps</a> right after the ROM, before the first boot.
+    LiteGapps stays installed after ROM updates.
   </div>
-</footer>
 
+  <h2 id="install">Install</h2>
+  <div class="card">
+    <ol>
+      <li>Unlock the bootloader and install the stock firmware LineageOS requires for your device.</li>
+      <li>Flash the nasgorOS recovery: <code>fastboot flash recovery NasgorOS-Recovery-17.0-&lt;date&gt;.img</code></li>
+      <li>Boot to recovery, <strong>Factory reset → Format data</strong>.</li>
+      <li><strong>Apply update</strong> and install <code>NasgorOS-17.0-&lt;date&gt;-OFFICIAL-&lt;device&gt;.zip</code>
+        (from storage or <code>adb sideload</code>).</li>
+      <li>Optional: install LiteGapps.</li>
+      <li>Reboot. The first boot takes a few minutes.</li>
+    </ol>
+    <p class="note">Coming from an UNOFFICIAL nasgorOS build or another ROM? Format data first.
+      Updates within OFFICIAL builds can be installed over the existing one (no OTA: install new builds
+      from recovery). Flashing is at your own risk.</p>
+  </div>
+
+  <footer>
+    <div class="buttons">
+      <a class="btn" href="https://github.com/nasgoros">GitHub</a>
+      <a class="btn" href="https://t.me/nasgoros">Telegram</a>
+      <a class="btn" href="https://sourceforge.net/projects/nasgoros/">SourceForge</a>
+    </div>
+    <p>© 2026 The nasgorOS Project · Based on <a href="https://lineageos.org">LineageOS</a>.
+      Not affiliated with LineageOS, Xiaomi or Google.</p>
+  </footer>
+</div>
 <script>
   (function () {
     var root = document.documentElement;
-    try {
-      var saved = localStorage.getItem("theme");
-      if (saved) root.setAttribute("data-theme", saved);
-    } catch (e) {}
+    try { var saved = localStorage.getItem("theme"); if (saved) root.setAttribute("data-theme", saved); } catch (e) {}
     document.getElementById("theme").addEventListener("click", function () {
       var current = root.getAttribute("data-theme") ||
         (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
